@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="As transações de M&amp;A no Brasil da quinzena, com o link de cada notícia. Por João Pedro Campanaro, Grupo Investor.">
+<meta property="og:title" content="Mapa do Ágio">
+<meta property="og:description" content="As transações de M&amp;A no Brasil pela lente de quem avalia.">
+<style>body{margin:0}*{box-sizing:border-box}img{max-width:100%}</style>
+<title>Mapa do Ágio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: faixa azul da marca no topo, depois uma coluna de leitura com as transações em lista. */
+:root {
+  --navy: #002E54; --green: #01F076; --green-ink: #06854A;
+  --bg: #F2F5F7; --card: #FFFFFF; --fg: #0B2540; --muted: #4A5F75; --line: #DCE3EA; --tk-bg: #E4EDF5;
+  --display: 'Sora', 'Segoe UI', sans-serif; --body: 'Manrope', 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #071A2C; --card: #0D2740; --fg: #E8EEF4; --muted: #9DB1C5; --line: #1E3A55; --tk-bg: #163552; --green-ink: #3BE08F; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #071A2C; --card: #0D2740; --fg: #E8EEF4; --muted: #9DB1C5; --line: #1E3A55; --tk-bg: #163552; --green-ink: #3BE08F; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body) }
+.topo { background: var(--navy); color: #fff; padding-inline: 16px; padding-block: 40px 44px }
+.wrap { max-width: 860px; margin: 0 auto }
+.topo img { width: 150px; height: auto; display: block }
+.topo .kicker { color: var(--green); margin-top: 36px }
+.topo h1 { font: 800 clamp(2.6rem, 8vw, 4.4rem)/1.05 var(--display); letter-spacing: -.03em; margin: .2em 0 .25em }
+.topo .sub { color: #D3DEE9; font-size: 1.15rem; margin: 0; max-width: 34em }
+.stats { display: flex; flex-wrap: wrap; gap: 28px 44px; margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.2) }
+.stats strong { font: 800 2rem/1 var(--display); display: block }
+.stats span { color: #C9D6E3; font-size: .95rem }
+.autor { margin-top: 22px; color: #D3DEE9; font-size: .95rem }
+main { padding-inline: 16px; padding-block: 36px 64px }
+.kicker { display: block; font-size: .78rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--green-ink) }
+h2 { font: 800 1.9rem/1.15 var(--display); letter-spacing: -.02em; margin: 0 0 18px; text-wrap: balance }
+.grupo + .grupo, .bloco { margin-top: 48px }
+.lista { display: grid; gap: 14px }
+.deal { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 6px 20px }
+.deal .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.setor { font-size: .78rem; font-weight: 800; letter-spacing: .14em; color: var(--green-ink) }
+.tk { font-size: .78rem; font-weight: 800; letter-spacing: .04em; background: var(--tk-bg); color: var(--fg); padding: 2px 8px; border-radius: 6px; margin-left: 6px; font-variant-numeric: tabular-nums }
+.deal .valor { grid-row: span 2; text-align: right }
+.valor span { display: block; font-size: .72rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--muted) }
+.valor strong { font: 800 1.25rem/1.2 var(--display); white-space: nowrap; font-variant-numeric: tabular-nums }
+.deal h3 { font: 700 1.3rem/1.25 var(--display); margin: 4px 0 0; grid-column: 1; text-wrap: balance }
+.deal p { grid-column: 1 / -1; margin: 4px 0 0; color: var(--muted); max-width: 62ch }
+.fonte { grid-column: 1 / -1; justify-self: start; font-weight: 700; color: var(--green-ink); text-decoration: none; margin-top: 6px }
+.fonte:hover, .fonte:focus-visible { text-decoration: underline }
+a:focus-visible { outline: 2px solid var(--green-ink); outline-offset: 3px; border-radius: 4px }
+.opas { list-style: none; padding: 0; margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 16px }
+.opas li { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 16px; padding: 18px 24px; border-top: 1px solid var(--line) }
+.opas li:first-child { border-top: 0 }
+.opas .quando { font: 700 1rem var(--display); color: var(--green-ink) }
+.opas strong { font: 700 1.1rem var(--display) }
+.opas p { margin: 2px 0 0; color: var(--muted) }
+.leitura { background: var(--navy); color: #fff; border-radius: 16px; padding: 28px 26px }
+.leitura .kicker { color: var(--green) }
+.leitura h2 { color: #fff; margin-top: 6px }
+.leitura ol { margin: 0; padding-left: 1.3em; display: grid; gap: 14px }
+.leitura li::marker { color: var(--green); font-weight: 800 }
+.leitura li p { margin: 2px 0 0; color: #D3DEE9 }
+footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem }
+@media (max-width: 560px) {
+  .deal { grid-template-columns: minmax(0,1fr) }
+  .deal .valor { grid-row: auto; text-align: left }
+  .opas li { grid-template-columns: minmax(0,1fr); gap: 4px }
+}
+</style>
+</head>
+<body>
+<header class="topo"><div class="wrap">
+  <img src="data:image/png;base64,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" alt="Investor">
+  <span class="kicker">M&amp;A · Brasil · 28/09 a 09/10</span>
+  <h1>Mapa do Ágio</h1>
+  <p class="sub">As transações da quinzena pela lente de quem avalia, com o link de cada notícia.</p>
+  <div class="stats"><div><strong>10</strong><span>transações</span></div><div><strong>5</strong><span>OPAs em curso</span></div><div><strong>9</strong><span>setores</span></div></div>
+  <p class="autor">por <strong>João Pedro Campanaro</strong> · Grupo Investor</p>
+</div></header>
+<main><div class="wrap">
+<section class="grupo">
+  <h2><span class="kicker">Na bolsa e grandes grupos</span>As transações</h2>
+  <div class="lista"><article class="deal">
+  <div class="meta"><span class="setor">MINERAÇÃO · TERRAS RARAS</span></div>
+  <div class="valor"><span>Valor</span><strong>A$ 968 mi</strong></div>
+  <h3>Lynas compra a Meteoric, dona do Projeto Caldeira (MG)</h3>
+  <p>Pagamento 100% em ações, com prêmio de 68%. Caldeira é apontado como o maior depósito de terras raras em argila iônica fora da China. Ainda depende de aprovações no Brasil e na Austrália.</p>
+  <a class="fonte" href="https://www.northernminer.com/news/lynas-shares-sink-on-a968m-meteoric-deal/1003895392/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">TELECOM · FIBRA</span><span class="tk">DESK3</span></div>
+  <div class="valor"><span>Valor</span><strong>R$ 1,75 bi</strong></div>
+  <h3>Claro NXT conclui a compra de 72,8% da Desktop</h3>
+  <p>O fechamento veio depois do aval definitivo do Cade. Agora a Claro lança a OPA unificada para os minoritários e a Desktop deve sair do Novo Mercado.</p>
+  <a class="fonte" href="https://monitordomercado.com.br/noticias/empresas-e-acoes/428577-cade-aprova-compra-de-72-8-da-desktop-pela-claro-nxt-sem-restricoes/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">SIDERURGIA</span><span class="tk">CSNA3</span></div>
+  <div class="valor"><span>Valor</span><strong>€ 550 mi</strong></div>
+  <h3>CSN assina term sheet para vender a SWT, na Alemanha</h3>
+  <p>Term sheet vinculante, com 10 semanas de exclusividade para a Megasa. A venda faz parte do plano para reduzir a dívida; a CSN pagou € 482,5 mi pela SWT em 2012.</p>
+  <a class="fonte" href="https://visnoinvest.com.br/news/15655/csn-csna3-anuncia-potencial-venda-da-swt-por-eur-550-mi" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">SANEAMENTO · ENERGIA</span><span class="tk">SBSP3</span><span class="tk">EMAE4</span></div>
+  <div class="valor"><span>Valor</span><strong>Troca de ações</strong></div>
+  <h3>Sabesp incorpora as ações da Emae</h3>
+  <p>Cada ação da Emae vira 1,3195 ação da Sabesp. Em julho, a CVM adiou a assembleia da Emae e pediu mais fundamento para a relação de troca; a aprovação saiu em setembro.</p>
+  <a class="fonte" href="https://renovainvest.com.br/?p=106708" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">AVIAÇÃO</span><span class="tk">AZUL3</span></div>
+  <div class="valor"><span>Valor</span><strong>US$ 100 mi</strong></div>
+  <h3>American Airlines fica com cerca de 8% da Azul</h3>
+  <p>O aporte faz parte da reestruturação da Azul. O Cade aprovou com um acordo que limita o acesso da American a informações estratégicas; ela indica um conselheiro.</p>
+  <a class="fonte" href="https://www.poder360.com.br/poder-economia/cade-aprova-investimento-da-american-airlines-na-azul/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">SAÚDE · DIAGNÓSTICO</span><span class="tk">FLRY3</span></div>
+  <div class="valor"><span>Valor</span><strong>R$ 55 mi</strong></div>
+  <h3>Fleury compra a Unilab, laboratório de Atibaia (SP)</h3>
+  <p>Múltiplo de 4,3x EV/EBITDA (3,5x com sinergias), abaixo das aquisições recentes do Fleury. A Unilab fatura R$ 65 mi e tem unidades no interior de SP e em Extrema (MG).</p>
+  <a class="fonte" href="https://www.bloomberglinea.com.br/negocios/fleury-compra-laboratorio-unilab-por-r-55-milhoes-e-avanca-no-interior-de-sp-e-em-mg/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article></div>
+</section><section class="grupo">
+  <h2><span class="kicker">Fora da bolsa</span>Médio porte</h2>
+  <div class="lista"><article class="deal">
+  <div class="meta"><span class="setor">SAÚDE · TRANSIÇÃO</span></div>
+  <div class="valor"><span>Valor</span><strong>R$ 80 mi</strong></div>
+  <h3>Opalus compra 5 hospitais e o home care da emeis</h3>
+  <p>A emeis (ex-Orpea) está saindo da América Latina. Com o negócio, a Opalus deve quase dobrar de tamanho e se aproximar de R$ 500 mi de faturamento.</p>
+  <a class="fonte" href="https://braziljournal.com/01yp" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">BEM-ESTAR</span><span class="tk">SMFT3</span></div>
+  <div class="valor"><span>Valor</span><strong>até R$ 32 mi</strong></div>
+  <h3>Smart Fit compra até 20% do Buddha Spa</h3>
+  <p>Participação minoritária, sem troca de controle, numa rede de 149 unidades (96% franqueadas). O acordo prevê opção de compra de mais 10%.</p>
+  <a class="fonte" href="https://www.bloomberglinea.com.br/negocios/smart-fit-compra-fatia-do-buddha-spa-por-ate-r-32-mi-e-vai-apoiar-expansao-no-exterior/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">WEALTH</span></div>
+  <div class="valor"><span>Valor</span><strong>Troca de ações</strong></div>
+  <h3>Grupo Primo incorpora a Oikos e chega a R$ 34 bi</h3>
+  <p>Os sócios da Oikos viram sócios do Primo. A Oikos traz R$ 8 bi sob gestão e cerca de 40 famílias; o grupo mira R$ 100 bi até 2028.</p>
+  <a class="fonte" href="https://braziljournal.com/grupo-primo-compra-a-oikos-e-atinge-r-34-bi-sob-custodia/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article><article class="deal">
+  <div class="meta"><span class="setor">AGRO · BIOINSUMOS</span></div>
+  <div class="valor"><span>Valor</span><strong>Não divulgado</strong></div>
+  <h3>BioFirst compra os 14,71% restantes e fica com 100% da Biotrop</h3>
+  <p>Encerra a compra em etapas iniciada em 2023, quando a BioFirst levou 85%. Os vendedores foram Aqua Capital e Zempar.</p>
+  <a class="fonte" href="https://forbes.com.br/forbes-agro/2026/10/biofirst-compra-fatia-restante-da-biotrop-e-assume-100-da-empresa/" target="_blank" rel="noopener">Ler a notícia <span aria-hidden="true">→</span></a>
+</article></div>
+</section>
+<section class="bloco">
+  <h2><span class="kicker">Número da quinzena</span>5 OPAs em curso na B3</h2>
+  <ul class="opas"><li><span class="quando">16/10</span><div><strong>Braskem</strong><span class="tk">BRKM5</span><p>Paga em debêntures, não em dinheiro</p>
+<a class="fonte" href="https://eduardocavalcanti2.substack.com/p/fatos-relevantes-ate-02102026" target="_blank" rel="noopener">Ver fonte <span aria-hidden="true">→</span></a></div></li><li><span class="quando">28/10</span><div><strong>Helbor</strong><span class="tk">HBOR3</span><p>Permuta da HBR Realty, R$ 2,52 por ação</p>
+<a class="fonte" href="https://eduardocavalcanti2.substack.com/p/fatos-relevantes-ate-09102026" target="_blank" rel="noopener">Ver fonte <span aria-hidden="true">→</span></a></div></li><li><span class="quando">29/10</span><div><strong>Arandu</strong><span class="tk">ARND3</span><p>R$ 0,67 por ação; saída do Novo Mercado</p>
+<a class="fonte" href="https://renovainvest.com.br/?p=104941" target="_blank" rel="noopener">Ver fonte <span aria-hidden="true">→</span></a></div></li><li><span class="quando">Protocolada</span><div><strong>Unifique</strong><span class="tk">FIQE3</span><p>R$ 6,00, 10,7% acima do laudo</p>
+<a class="fonte" href="https://monitordomercado.com.br/noticias/429290-controladora-da-unifique-fiqe3-propoe-opa-a-r-6-por-acao-btg-preve-resistencia-de-minoritarios/" target="_blank" rel="noopener">Ver fonte <span aria-hidden="true">→</span></a></div></li><li><span class="quando">Protocolada</span><div><strong>Desktop</strong><span class="tk">DESK3</span><p>OPA unificada após a troca de controle</p>
+<a class="fonte" href="https://eduardocavalcanti2.substack.com/p/fatos-relevantes-ate-09102026" target="_blank" rel="noopener">Ver fonte <span aria-hidden="true">→</span></a></div></li></ul>
+</section>
+<section class="bloco leitura">
+  <span class="kicker">Leitura do avaliador</span>
+  <h2>O laudo saiu do anexo e foi para o centro da mesa.</h2>
+  <ol><li><strong>OPA não fecha só com prêmio</strong><p>A Unifique ofereceu 10,7% acima do laudo e, mesmo assim, o mercado espera que os minoritários questionem o preço.</p></li><li><strong>Relação de troca precisa ser justificada</strong><p>Na Sabesp/Emae, a CVM adiou a assembleia até receber a justificativa econômico-financeira da troca.</p></li><li><strong>Nem todo ágio vira goodwill</strong><p>Na Desktop e na Unilab, parte do preço vai para marca, base de clientes e relacionamento com convênios. Só o que sobra é goodwill. Em Caldeira, quase tudo deve ficar nos direitos minerários.</p></li><li><strong>Comprar a parte do sócio não cria ágio</strong><p>A BioFirst já controlava a Biotrop. Ao ficar com 100%, a diferença vai para o patrimônio líquido, não para o goodwill (CPC 36).</p></li></ol>
+</section>
+<footer>Informações públicas, conforme divulgação das companhias e da imprensa. Não constitui recomendação de investimento.<br>João Pedro Campanaro · Grupo Investor · Laudos de PPA, valuation e laudos societários</footer>
+</div></main>
+
+</body>
+</html>
